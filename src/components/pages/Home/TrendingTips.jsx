@@ -85,7 +85,7 @@ const TrendingTips = () => {
                             user,
                             likes,
                             date,
-                            tags = [],
+                            // tags = [],
                         } = tip;
 
                         return (
@@ -113,7 +113,7 @@ const TrendingTips = () => {
                                     <h3 className="card-title">{title}</h3>
                                     <p className="text-base-content/80 line-clamp-3">{description}</p>
 
-                                    {/* Tags */}
+                                    {/* Tags
                                     <div className="mt-2 flex flex-wrap gap-1">
                                         {tags.map((tag, idx) => (
                                             <div
@@ -123,7 +123,7 @@ const TrendingTips = () => {
                                                 #{tag}
                                             </div>
                                         ))}
-                                    </div>
+                                    </div> */}
 
                                     <div className="mt-4 flex items-center">
                                         <div className="avatar mr-3">

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import { Typewriter } from 'react-simple-typewriter';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
@@ -42,7 +43,19 @@ const Banner = () => {
               <div className="container mx-auto px-6 md:px-12 z-10 text-white">
                 <div className="max-w-lg bg-black/30 backdrop-blur-sm p-8 rounded-lg">
                   <span className="text-primary font-semibold">{event.date}</span>
-                  <h2 className="text-3xl md:text-4xl font-bold mt-2 mb-4">{event.title}</h2>
+
+                  <h2 className="text-3xl md:text-4xl font-bold mt-2 mb-4">
+                    <Typewriter
+                      words={[event.title]}
+                      loop={0}
+                      cursor
+                      cursorStyle="_"
+                      typeSpeed={70}
+                      deleteSpeed={70}
+                      delaySpeed={2000}
+                    />
+                  </h2>
+
                   <p className="text-lg mb-6">{event.description}</p>
                   <div className="flex items-center mb-6">
                     <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
