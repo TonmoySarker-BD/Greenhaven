@@ -1,10 +1,22 @@
-import { useState, useEffect } from 'react';
-import { Link, NavLink } from 'react-router';
-import {FaLeaf, FaSearch, FaLightbulb, FaPenAlt, FaUser,FaSignOutAlt, FaMoon, FaSun} from 'react-icons/fa';
+import { useContext, useEffect, useState } from 'react';
+import { Link, NavLink, useNavigate } from 'react-router';
+import { FaLeaf, FaSearch, FaLightbulb, FaPenAlt, FaUser, FaSignOutAlt, FaMoon, FaSun } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
+import { AuthContext } from '../../Provider/AuthProvider';
 
 const NavBar = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { user, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate("/auth");
+    } catch (error) {
+      console.error("Failed to log out", error);
+    }
+  };
+
   const [darkMode, setDarkMode] = useState(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('theme');
@@ -20,13 +32,6 @@ const NavBar = () => {
   }, [darkMode]);
 
   const toggleTheme = () => setDarkMode(prev => !prev);
-  const handleLogin = () => setIsLoggedIn(true);
-  const handleLogout = () => setIsLoggedIn(false);
-
-  const user = {
-    name: 'Jane Gardener',
-    photo: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp'
-  };
 
   const navLinkClass = (isActive) =>
     isActive ? 'text-primary font-medium' : 'text-base-content';
@@ -46,7 +51,7 @@ const NavBar = () => {
           <FaLightbulb className="text-sm" /> Browse Tips
         </NavLink>
       </li>
-      {isLoggedIn && (
+      {user && (
         <>
           <li>
             <NavLink to="/share-tip" className={({ isActive }) => `flex items-center gap-1 hover:text-primary ${navLinkClass(isActive)}`}>
@@ -63,7 +68,7 @@ const NavBar = () => {
 
   return (
     <div className="navbar bg-base-100 shadow-sm px-4 sm:px-8">
-      {/* Mobile menu */}
+      {/* Mobile Menu */}
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -81,14 +86,13 @@ const NavBar = () => {
         </Link>
       </div>
 
-      {/* Desktop menu */}
+      {/* Desktop Menu */}
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1 gap-2">{menu}</ul>
       </div>
 
-      {/* Right side controls */}
+      {/* Theme Toggle & Auth */}
       <div className="navbar-end gap-2">
-        {/* Theme toggle with animation */}
         <motion.button
           onClick={toggleTheme}
           className="btn btn-ghost btn-circle"
@@ -110,28 +114,22 @@ const NavBar = () => {
           </AnimatePresence>
         </motion.button>
 
-        {/* Auth section */}
-        {isLoggedIn ? (
+        {user ? (
           <div className="dropdown dropdown-end">
             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
-                <img alt="User profile" src={user.photo} />
+                <img alt="User profile" src={user.photoURL || 'https://i.postimg.cc/VsJzs7By/Tonmoy-Sarker.jpg'} />
               </div>
             </div>
             <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-              <li>
-                <a className="justify-between">Profile <span className="badge">New</span></a>
-              </li>
-              <li><a>Settings</a></li>
-              <li>
-                <button onClick={handleLogout}><FaSignOutAlt /> Logout</button>
-              </li>
+              <li><NavLink to="/">Profile</NavLink></li>
+              <li><button onClick={handleLogout}><FaSignOutAlt /> Logout</button></li>
             </ul>
           </div>
         ) : (
-          <button onClick={handleLogin} className="btn btn-outline btn-primary btn-sm md:btn-md">
-            <FaUser /> Login/SignUp
-          </button>
+          <Link to="/auth" className="btn btn-outline btn-primary btn-sm md:btn-md">
+            <FaUser /> Login
+          </Link>
         )}
       </div>
     </div>
