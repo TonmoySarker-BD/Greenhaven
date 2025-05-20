@@ -8,6 +8,8 @@ import ForgetPassword from "./components/pages/Auth/ForgetPassword";
 import Profile from "./components/pages/Profile/Profile";
 import UpdateProfile from "./components/pages/Profile/UpdateProfile";
 import ExploreGardeners from "./components/pages/explore/ExploreGardeners ";
+import Tips from "./components/pages/Tips/Tips";
+import TipDetailsPage from "./components/pages/Tips/TipDetailsPage";
 
 export const router = createBrowserRouter([
     {
@@ -24,7 +26,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/tips",
-                Component: Home,
+                Component: Tips,
+            },
+            {
+                path: '/tips/:id',
+                Component: TipDetailsPage,
             },
             {
                 path: "/Profile",
