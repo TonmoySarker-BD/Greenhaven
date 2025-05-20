@@ -5,6 +5,8 @@ import AuthLayout from "./components/layouts/AuthLayout";
 import Login from "./components/pages/Auth/Login";
 import Register from "./components/pages/Auth/Register";
 import ForgetPassword from "./components/pages/Auth/ForgetPassword";
+import Profile from "./components/pages/Profile/Profile";
+import UpdateProfile from "./components/pages/Profile/UpdateProfile";
 
 export const router = createBrowserRouter([
     {
@@ -14,6 +16,14 @@ export const router = createBrowserRouter([
             {
                 index: true,
                 Component: Home,
+            },
+            {
+                path: "/Profile",
+                Component: Profile,
+            },
+            {
+                path: "/update-profile",
+                Component: UpdateProfile,
             },
         ],
     },

@@ -9,7 +9,7 @@ const AuthLayout = () => {
             <header>
                 <NavBar></NavBar>
             </header>
-            <main className='min-h-screen mx-10'>
+            <main className='min-h-[80vh] mx-10'>
                 <Outlet></Outlet>
             </main>
             <footer>

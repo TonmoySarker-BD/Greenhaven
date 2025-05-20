@@ -67,7 +67,7 @@ const NavBar = () => {
   );
 
   return (
-    <div className="navbar bg-base-100 shadow-sm px-4 sm:px-8">
+    <div className="navbar bg-base-100 shadow-sm px-4 sm:px-8 fixed top-0 left-0 w-full z-50">
       {/* Mobile Menu */}
       <div className="navbar-start">
         <div className="dropdown">
@@ -116,13 +116,13 @@ const NavBar = () => {
 
         {user ? (
           <div className="dropdown dropdown-end">
-            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar"  title={user.displayName || 'User'}>
               <div className="w-10 rounded-full">
                 <img alt="User profile" src={user.photoURL || 'https://i.postimg.cc/VsJzs7By/Tonmoy-Sarker.jpg'} />
               </div>
             </div>
             <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-              <li><NavLink to="/">Profile</NavLink></li>
+              <li><NavLink to="/Profile">Profile</NavLink></li>
               <li><button onClick={handleLogout}><FaSignOutAlt /> Logout</button></li>
             </ul>
           </div>
