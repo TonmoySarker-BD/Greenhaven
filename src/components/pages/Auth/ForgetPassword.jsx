@@ -1,13 +1,11 @@
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { FaLeaf, FaEnvelope, FaArrowLeft } from 'react-icons/fa';
-import { toast } from 'react-toastify';
+import Swal from 'sweetalert2';
 import { AuthContext } from '../../../Provider/AuthProvider';
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');
-    const [error, setError] = useState('');
-    const [message, setMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
     const { resetPassword } = useContext(AuthContext);
@@ -28,22 +26,32 @@ const ForgotPassword = () => {
 
     const handleForgetPassword = async (e) => {
         e.preventDefault();
-        setError('');
-        setMessage('');
         setIsLoading(true);
 
         try {
             await resetPassword(email);
-            setMessage('Password reset email sent. Please check your inbox.');
-            toast.success('Password reset email sent');
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Password reset email sent!',
+                text: 'Check your inbox to reset your password.',
+                timer: 3000,
+                showConfirmButton: false
+            });
+
             setTimeout(() => {
                 window.open('https://mail.google.com', '_blank');
                 navigate('/auth/login');
             }, 3000);
         } catch (error) {
             const msg = getErrorMessage(error.code);
-            setError(msg);
-            toast.error(msg);
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops!',
+                text: msg,
+                confirmButtonColor: '#d33'
+            });
         } finally {
             setIsLoading(false);
         }
@@ -63,7 +71,7 @@ const ForgotPassword = () => {
                 </p>
             </div>
 
-            <div className="mt-8 sm:mx-auto  sm:w-full sm:max-w-md">
+            <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
                 <div className="bg-base-200 rounded-2xl py-8 px-4 shadow sm:rounded-lg sm:px-10">
                     <div className="mb-6">
                         <Link
@@ -73,8 +81,6 @@ const ForgotPassword = () => {
                             <FaArrowLeft className="mr-1" /> Back to login
                         </Link>
                     </div>
-
-
 
                     <form className="space-y-6" onSubmit={handleForgetPassword}>
                         <div>
@@ -98,18 +104,6 @@ const ForgotPassword = () => {
                                 />
                             </div>
                         </div>
-
-                        {message && (
-                            <div className="mb-4 p-4 bg-success/10 text-success rounded-lg">
-                                {message}
-                            </div>
-                        )}
-
-                        {error && (
-                            <div className="mb-4 p-4 bg-error/10 text-error rounded-lg">
-                                {error}
-                            </div>
-                        )}
 
                         <div>
                             <button

@@ -1,7 +1,8 @@
-import React, { use, useEffect, useState } from 'react';
+import React, { use, useState } from 'react';
 import { FaUser, FaImage } from 'react-icons/fa';
 import { useNavigate, Link } from 'react-router';
 import { AuthContext } from '../../../Provider/AuthProvider';
+import Swal from 'sweetalert2';
 
 const UpdateProfile = () => {
   const { user, updateUserProfile } = use(AuthContext);
@@ -11,18 +12,25 @@ const UpdateProfile = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleUpdate = async (e) => {
-    e.preventDefault();
-    try {
-      await updateUserProfile({ displayName: name, photoURL });
-      setMessage('Profile updated successfully!');
-      setError('');
-      setTimeout(() => navigate('/profile'), 1000);
-    } catch (err) {
-      setError(err.message);
-      setMessage('');
-    }
-  };
+const handleUpdate = async (e) => {
+  e.preventDefault();
+  try {
+    await updateUserProfile({ displayName: name, photoURL });
+    setMessage('Profile updated successfully!');
+
+    Swal.fire({
+      icon: 'success',
+      title: 'Your profile has been updated!',
+      showConfirmButton: false,
+      timer: 2000
+    });
+
+    setError('');
+    setTimeout(() => navigate('/profile'), 2000); // match timer with Swal duration
+  } catch (err) {
+    setError(err.message);
+  }
+};
 
   return (
     <div className="py-20 bg-base-50 flex items-center justify-center p-4">

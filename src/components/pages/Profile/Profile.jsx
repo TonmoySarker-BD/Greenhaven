@@ -10,7 +10,7 @@ const Profile = () => {
   const handleLogout = async () => {
     try {
       await logout();
-      navigate("/login");
+      navigate("/auth");
     } catch (error) {
       console.error("Failed to log out", error);
     }

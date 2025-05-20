@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { FcGoogle } from 'react-icons/fc';
 import { AuthContext } from '../../../Provider/AuthProvider';
-import { toast } from 'react-toastify';
+import Swal from 'sweetalert2';
 import { FaLeaf } from 'react-icons/fa';
 
 const Register = () => {
@@ -21,18 +21,14 @@ const Register = () => {
 
     const getErrorMessage = (code) => {
         switch (code) {
+            case 'auth/email-already-in-use':
+                return 'An account already exists with this email.';
             case 'auth/invalid-email':
                 return 'Invalid email address';
-            case 'auth/user-disabled':
-                return 'Account disabled';
-            case 'auth/user-not-found':
-                return 'No account found with this email';
-            case 'auth/wrong-password':
-                return 'Incorrect password';
-            case 'auth/popup-closed-by-user':
-                return 'Google sign-in was canceled';
+            case 'auth/weak-password':
+                return 'Weak password, must meet requirements';
             default:
-                return 'Login failed. Please try again';
+                return 'Registration failed. Please try again.';
         }
     };
 
@@ -44,7 +40,6 @@ const Register = () => {
         setIsLoading(true);
 
         const { name, email, photoURL, password } = e.target.elements;
-
         const trimmedName = name.value.trim();
         const trimmedEmail = email.value.trim();
         const trimmedPhoto = photoURL.value.trim();
@@ -67,11 +62,22 @@ const Register = () => {
 
             await updateUser({ displayName: trimmedName, photoURL: trimmedPhoto });
             setUser({ ...user, displayName: trimmedName, photoURL: trimmedPhoto });
-            toast.success('Account created successfully!');
+
+            await Swal.fire({
+                icon: 'success',
+                title: 'Account created successfully!',
+                showConfirmButton: false,
+                timer: 2000
+            });
+
             navigate('/');
         } catch (err) {
-            console.error(err);
-            setError(err.message || 'Registration failed');
+            Swal.fire({
+                icon: 'error',
+                title: 'Registration Failed',
+                text: getErrorMessage(err.code),
+                confirmButtonColor: '#d33'
+            });
         } finally {
             setIsLoading(false);
         }
@@ -81,10 +87,20 @@ const Register = () => {
         setIsLoading(true);
         try {
             await signInWithGoogle();
-            toast.success('Signed in with Google!');
+            await Swal.fire({
+                icon: 'success',
+                title: 'Signed in with Google successfully !',
+                showConfirmButton: false,
+                timer: 2000
+            });
             navigate('/');
         } catch (error) {
-            toast.error(getErrorMessage(error.code));
+            Swal.fire({
+                icon: 'error',
+                title: 'Google Sign-in Failed',
+                text: getErrorMessage(error.code),
+                confirmButtonColor: '#d33'
+            });
         } finally {
             setIsLoading(false);
         }
