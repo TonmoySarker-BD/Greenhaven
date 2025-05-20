@@ -7,6 +7,7 @@ import Register from "./components/pages/Auth/Register";
 import ForgetPassword from "./components/pages/Auth/ForgetPassword";
 import Profile from "./components/pages/Profile/Profile";
 import UpdateProfile from "./components/pages/Profile/UpdateProfile";
+import ExploreGardeners from "./components/pages/explore/ExploreGardeners ";
 
 export const router = createBrowserRouter([
     {
@@ -15,6 +16,14 @@ export const router = createBrowserRouter([
         children: [
             {
                 index: true,
+                Component: Home,
+            },
+            {
+                path: "/explore",
+                Component: ExploreGardeners,
+            },
+            {
+                path: "/tips",
                 Component: Home,
             },
             {
