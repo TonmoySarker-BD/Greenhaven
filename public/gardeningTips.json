@@ -1,0 +1,121 @@
+[
+  {
+    "id": 1,
+    "title": "How I Grow Tomatoes Indoors",
+    "plantType": "Tomatoes",
+    "difficulty": "Medium",
+    "description": "Learn my year-round method for growing juicy tomatoes indoors using LED grow lights and self-watering containers.",
+    "image": "https://images.unsplash.com/photo-1594282416549-65e5f3f4290a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+    "category": "Plant Care",
+    "availability": "Public",
+    "user": {
+      "name": "Sarah Greenfield",
+      "email": "sarah@example.com"
+    },
+    "likes": 148,
+    "date": "2024-11-12",
+    "tags": ["indoor", "tomatoes", "LED lights", "self-watering"]
+  },
+  {
+    "id": 2,
+    "title": "Composting in Small Spaces",
+    "plantType": "Compost",
+    "difficulty": "Easy",
+    "description": "My apartment-friendly composting system that produces rich soil in just 6 weeks without odors.",
+    "image": "https://images.unsplash.com/photo-1589927986089-35812388d1f4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+    "category": "Composting",
+    "availability": "Public",
+    "user": {
+      "name": "Miguel Herrera",
+      "email": "miguel@example.com"
+    },
+    "likes": 274,
+    "date": "2024-10-01",
+    "tags": ["composting", "apartment", "soil", "no odors"]
+  },
+  {
+    "id": 3,
+    "title": "Vertical Herb Garden Setup",
+    "plantType": "Herbs",
+    "difficulty": "Easy",
+    "description": "Step-by-step guide to creating a space-saving vertical herb garden with recycled materials.",
+    "image": "https://images.unsplash.com/photo-1590691565940-b8d5d6a4d6d2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+    "category": "Vertical Gardening",
+    "availability": "Public",
+    "user": {
+      "name": "Priya Patel",
+      "email": "priya@example.com"
+    },
+    "likes": 89,
+    "date": "2025-01-08",
+    "tags": ["vertical", "herbs", "space-saving", "recycled"]
+  },
+  {
+    "id": 4,
+    "title": "Orchid Care for Beginners",
+    "plantType": "Orchids",
+    "difficulty": "Hard",
+    "description": "Everything I wish I knew when I started growing orchids - watering, light requirements, and common mistakes.",
+    "image": "https://images.unsplash.com/photo-1517191434949-5e90cd67d2b6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+    "category": "Plant Care",
+    "availability": "Public",
+    "user": {
+      "name": "James Wilson",
+      "email": "james@example.com"
+    },
+    "likes": 203,
+    "date": "2024-09-20",
+    "tags": ["orchids", "watering", "light", "mistakes"]
+  },
+  {
+    "id": 5,
+    "title": "DIY Rainwater Collection System",
+    "plantType": "General",
+    "difficulty": "Medium",
+    "description": "How to build an efficient rainwater harvesting system for your garden under $50.",
+    "image": "https://images.unsplash.com/photo-1580013759032-c96505e24c1f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+    "category": "Sustainability",
+    "availability": "Public",
+    "user": {
+      "name": "Elena Rodriguez",
+      "email": "elena@example.com"
+    },
+    "likes": 156,
+    "date": "2024-12-10",
+    "tags": ["rainwater", "DIY", "harvesting", "budget"]
+  },
+  {
+    "id": 6,
+    "title": "Pest Control Without Chemicals",
+    "plantType": "General",
+    "difficulty": "Medium",
+    "description": "My organic pest control methods that actually work against aphids, slugs, and whiteflies.",
+    "image": "https://images.unsplash.com/photo-1586941791747-6d2e9a5c2f1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+    "category": "Organic Gardening",
+    "availability": "Public",
+    "user": {
+      "name": "David Kim",
+      "email": "david@example.com"
+    },
+    "likes": 312,
+    "date": "2024-11-22",
+    "tags": ["organic", "pest control", "aphids", "slugs"]
+  },
+  {
+    "id": 7,
+    "title": "Secret Rose Pruning Technique",
+    "plantType": "Roses",
+    "difficulty": "Hard",
+    "description": "Professional gardener's method for perfect rose blooms every season.",
+    "image": "https://images.unsplash.com/photo-1517191434949-5e90cd67d2b6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+    "category": "Plant Care",
+    "availability": "Hidden",
+    "user": {
+      "name": "Olivia Chen",
+      "email": "olivia@example.com"
+    },
+    "likes": 67,
+    "date": "2024-08-14",
+    "tags": ["roses", "pruning", "gardening", "professional"]
+  }
+]
