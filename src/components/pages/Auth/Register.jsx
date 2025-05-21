@@ -70,7 +70,7 @@ const Register = () => {
                 timer: 2000
             });
 
-            navigate('/');
+            navigate(`${location.state ? location.state : "/"}`);
         } catch (err) {
             Swal.fire({
                 icon: 'error',
@@ -93,7 +93,7 @@ const Register = () => {
                 showConfirmButton: false,
                 timer: 2000
             });
-            navigate('/');
+            navigate(`${location.state ? location.state : "/"}`);
         } catch (error) {
             Swal.fire({
                 icon: 'error',
