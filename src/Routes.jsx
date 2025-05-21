@@ -11,6 +11,7 @@ import ExploreGardeners from "./components/pages/explore/ExploreGardeners ";
 import Tips from "./components/pages/Tips/Tips";
 import TipDetailsPage from "./components/pages/Tips/TipDetailsPage";
 import NotFoundPage from "./components/pages/NotFoundPage";
+import ShareTip from "./components/pages/Tips/ShareTip";
 
 export const router = createBrowserRouter([
     {
@@ -32,6 +33,10 @@ export const router = createBrowserRouter([
             {
                 path: '/tips/:id',
                 Component: TipDetailsPage,
+            },
+            {
+                path: '/share-tip',
+                Component: ShareTip,
             },
             {
                 path: "/Profile",
