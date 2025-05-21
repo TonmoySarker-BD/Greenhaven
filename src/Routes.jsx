@@ -10,6 +10,7 @@ import UpdateProfile from "./components/pages/Profile/UpdateProfile";
 import ExploreGardeners from "./components/pages/explore/ExploreGardeners ";
 import Tips from "./components/pages/Tips/Tips";
 import TipDetailsPage from "./components/pages/Tips/TipDetailsPage";
+import NotFoundPage from "./components/pages/NotFoundPage";
 
 export const router = createBrowserRouter([
     {
@@ -40,6 +41,7 @@ export const router = createBrowserRouter([
                 path: "/update-profile",
                 Component: UpdateProfile,
             },
+
         ],
     },
     {
@@ -63,5 +65,9 @@ export const router = createBrowserRouter([
                 Component: ForgetPassword,
             },
         ],
+    },
+    {
+        path: '*',
+        Component: NotFoundPage
     },
 ]);
