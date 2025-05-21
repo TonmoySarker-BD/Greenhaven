@@ -9,6 +9,7 @@ const TipDetailsPage = () => {
     const [error, setError] = useState(null);
     const [liked, setLiked] = useState(false);
     const [likeCount, setLikeCount] = useState(0);
+    
 
     useEffect(() => {
         const fetchTip = async () => {

@@ -41,23 +41,33 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/share-tip',
-                Component: ShareTip,
+                element:<PrivateRoute>
+                    <ShareTip></ShareTip>
+                </PrivateRoute>,
             },
             {
                 path: '/my-tips',
-                Component: MyTips,
+                element:<PrivateRoute>
+                    <MyTips></MyTips>
+                </PrivateRoute>,
             },
             {
                 path: '/update-tip/:id',
-                Component: UpdateTip,
+                element:<PrivateRoute>
+                    <UpdateTip></UpdateTip>
+                </PrivateRoute>,
             },
             {
                 path: "/Profile",
-                Component: Profile,
+                element:<PrivateRoute>
+                    <Profile></Profile>
+                </PrivateRoute>,
             },
             {
                 path: "/update-profile",
-                Component: UpdateProfile,
+                element:<PrivateRoute>
+                    <UpdateProfile></UpdateProfile>
+                </PrivateRoute>,
             },
 
         ],

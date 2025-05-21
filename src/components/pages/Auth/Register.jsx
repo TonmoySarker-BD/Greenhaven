@@ -69,7 +69,6 @@ const Register = () => {
                 showConfirmButton: false,
                 timer: 2000
             });
-
             navigate(`${location.state ? location.state : "/"}`);
         } catch (err) {
             Swal.fire({

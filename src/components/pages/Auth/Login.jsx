@@ -1,29 +1,33 @@
 import { useContext, useState } from 'react';
-import { Link, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { FaLeaf, FaUser, FaLock } from 'react-icons/fa';
 import { FcGoogle } from "react-icons/fc";
 import Swal from 'sweetalert2';
 import { AuthContext } from '../../../Provider/AuthProvider';
 
 const Login = () => {
-    const { signIn, signInWithGoogle } = useContext(AuthContext);
+    const { signIn, signInWithGoogle, setUser } = useContext(AuthContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
+    const location = useLocation();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
         try {
-            await signIn(email, password);
+            signIn(email, password).then((userCredential) => {
+                const user = userCredential.user;
+                setUser(user);
+                navigate(location.state?.from?.pathname || '/');
+            })
             Swal.fire({
                 icon: 'success',
                 title: 'Login successful!',
                 showConfirmButton: false,
                 timer: 2000
             });
-            navigate(`${location.state ? location.state : "/"}`);
         } catch (error) {
             Swal.fire({
                 icon: 'error',
@@ -46,7 +50,7 @@ const Login = () => {
                 showConfirmButton: false,
                 timer: 2000
             });
-            navigate(`${location.state ? location.state : "/"}`);
+            navigate(location.state?.from?.pathname || '/');
         } catch (error) {
             Swal.fire({
                 icon: 'error',
