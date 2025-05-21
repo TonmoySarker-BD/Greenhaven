@@ -12,6 +12,9 @@ import Tips from "./components/pages/Tips/Tips";
 import TipDetailsPage from "./components/pages/Tips/TipDetailsPage";
 import NotFoundPage from "./components/pages/NotFoundPage";
 import ShareTip from "./components/pages/Tips/ShareTip";
+import MyTips from "./components/pages/Tips/MyTips";
+import UpdateTip from "./components/pages/Tips/UpdateTip";
+import PrivateRoute from "./Provider/PrivateRoute";
 
 export const router = createBrowserRouter([
     {
@@ -32,11 +35,21 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/tips/:id',
-                Component: TipDetailsPage,
+                element: <PrivateRoute>
+                    <TipDetailsPage></TipDetailsPage>
+                </PrivateRoute>
             },
             {
                 path: '/share-tip',
                 Component: ShareTip,
+            },
+            {
+                path: '/my-tips',
+                Component: MyTips,
+            },
+            {
+                path: '/update-tip/:id',
+                Component: UpdateTip,
             },
             {
                 path: "/Profile",
