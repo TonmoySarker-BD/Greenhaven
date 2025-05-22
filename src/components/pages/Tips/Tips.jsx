@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router';
-import { FaEye, FaRegThumbsUp, FaSearch, FaUser, FaFilter } from 'react-icons/fa';
+import { FaEye, FaRegThumbsUp, FaSearch,  FaFilter } from 'react-icons/fa';
 
 const Tips = () => {
     const [tips, setTips] = useState([]);
@@ -195,7 +195,6 @@ const Tips = () => {
                                                     {tip.description}
                                                 </div>
                                             </td>
-                                            {console.log(tips)}
                                             <td>
                                                 <span className="badge badge-outline md:w-48">{tip.category}</span>
                                             </td>
@@ -224,7 +223,7 @@ const Tips = () => {
                                             </td>
                                             <td>
                                                 <Link
-                                                    to={`/tips/${tip.id}`}
+                                                    to={`/tips/${tip._id}`}
                                                     className="btn btn-ghost btn-sm"
                                                 >
                                                     <FaEye className="text-lg" />
@@ -278,6 +277,7 @@ const Tips = () => {
                                                             >
                                                                 <FaEye />
                                                             </Link>
+                                                            {console.log(tip._id)}
                                                         </div>
                                                     </div>
                                                 </div>
