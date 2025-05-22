@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { FaLeaf, FaUser, FaSeedling, FaChartLine } from 'react-icons/fa';
+import { FaLeaf, FaUser, FaSeedling, FaChartLine, FaEye } from 'react-icons/fa';
+import { Link } from 'react-router';
 
 const TrendingTips = () => {
     const [trendingTips, setTrendingTips] = useState([]);
@@ -128,7 +129,7 @@ const TrendingTips = () => {
                                     <div className="mt-4 flex items-center">
                                         <div className="avatar mr-3">
                                             <div className="w-8 rounded-full bg-base-300 flex items-center justify-center text-primary font-bold">
-                                                
+
                                                 <img src={tip.user.userImage} alt={tip.user.name} />
                                             </div>
                                         </div>
@@ -144,9 +145,11 @@ const TrendingTips = () => {
                                     </p>
 
                                     <div className="card-actions justify-end mt-4">
-                                        <button aria-label={`View details for ${title}`} className="btn btn-primary btn-sm">
-                                            View Tip
-                                        </button>
+                                        <Link to={`/tips/${tip._id}`}>
+                                            <button aria-label={`View details for ${title}`} className="btn btn-primary btn-sm">
+                                                <FaEye /> View Tip
+                                            </button>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
@@ -155,7 +158,9 @@ const TrendingTips = () => {
                 </div>
 
                 <div className="text-center mt-12">
-                    <button className="btn btn-outline btn-primary">View All Tips</button>
+                    <Link to="/tips">
+                        <button className="btn btn-outline btn-primary">View All Tips</button>
+                    </Link>
                 </div>
             </div>
         </div>

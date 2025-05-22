@@ -30,14 +30,29 @@ const MyTips = () => {
       confirmButtonColor: '#d33',
       cancelButtonColor: '#22c55e',
       confirmButtonText: 'Yes, delete it!'
-    }).then(result => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        const updatedTips = tips.filter(tip => tip.id !== id);
-        setTips(updatedTips);
-        Swal.fire('Deleted!', 'Your tip has been deleted.', 'success');
+        try {
+          const response = await fetch(`http://localhost:3000/tips/${id}`, {
+            method: 'DELETE',
+          });
+
+          if (!response.ok) {
+            throw new Error('Failed to delete tip');
+          }
+
+          // Remove tip from state only if delete succeeded
+          setTips(prevTips => prevTips.filter(tip => tip._id !== id));
+
+          Swal.fire('Deleted!', 'Your tip has been deleted.', 'success');
+        } catch (error) {
+          console.error('Delete error:', error);
+          Swal.fire('Error', 'Failed to delete the tip. Please try again.', 'error');
+        }
       }
     });
   };
+
 
   return (
     <div className="p-4 pt-20 max-w-6xl mx-auto">
@@ -81,7 +96,7 @@ const MyTips = () => {
                       Update
                     </button>
                     <button
-                      onClick={() => handleDelete(tip.id)}
+                      onClick={() => handleDelete(tip._id)}
                       className="btn btn-sm btn-error"
                     >
                       Delete
@@ -123,7 +138,7 @@ const MyTips = () => {
                     Update
                   </button>
                   <button
-                    onClick={() => handleDelete(tip.id)}
+                    onClick={() => handleDelete(tip._id)}
                     className="btn btn-sm btn-error"
                   >
                     Delete

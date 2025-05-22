@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router';
-import { FaEye, FaRegThumbsUp, FaSearch,  FaFilter } from 'react-icons/fa';
+import { FaEye, FaRegThumbsUp, FaSearch, FaFilter } from 'react-icons/fa';
 
 const Tips = () => {
     const [tips, setTips] = useState([]);
@@ -119,7 +119,7 @@ const Tips = () => {
                             />
                             <FaSearch className="absolute left-3 top-3 text-base-content/50" />
                         </div>
-                        <button 
+                        <button
                             className="btn btn-square"
                             onClick={() => setShowMobileFilters(!showMobileFilters)}
                         >
@@ -200,7 +200,7 @@ const Tips = () => {
                                             </td>
                                             <td>
                                                 <span className={`badge ${tip.difficulty === 'Easy' ? 'badge-success' :
-                                                        tip.difficulty === 'Medium' ? 'badge-warning' : 'badge-error'
+                                                    tip.difficulty === 'Medium' ? 'badge-warning' : 'badge-error'
                                                     }`}>
                                                     {tip.difficulty}
                                                 </span>
@@ -209,7 +209,7 @@ const Tips = () => {
                                                 <div className="flex items-center gap-2">
                                                     <div className="avatar">
                                                         <div className="w-8 rounded-full">
-                                                            <img src={tip.user.userImage} alt={tip.user.name}/>
+                                                            <img src={tip.user.userImage} alt={tip.user.name} />
                                                         </div>
                                                     </div>
                                                     <span>{tip.user.name}</span>
@@ -222,12 +222,10 @@ const Tips = () => {
                                                 </div>
                                             </td>
                                             <td>
-                                                <Link
-                                                    to={`/tips/${tip._id}`}
-                                                    className="btn btn-ghost btn-sm"
-                                                >
-                                                    <FaEye className="text-lg" />
-                                                    View
+                                                <Link to={`/tips/${tip._id}`}>
+                                                    <button className="btn w-24 btn-primary btn-sm">
+                                                        <FaEye/> View Tip
+                                                    </button>
                                                 </Link>
                                             </td>
                                         </tr>
@@ -252,7 +250,7 @@ const Tips = () => {
                                                     <div className="flex flex-wrap gap-2 mb-3">
                                                         <span className="badge badge-outline">{tip.category}</span>
                                                         <span className={`badge ${tip.difficulty === 'Easy' ? 'badge-success' :
-                                                                tip.difficulty === 'Medium' ? 'badge-warning' : 'badge-error'
+                                                            tip.difficulty === 'Medium' ? 'badge-warning' : 'badge-error'
                                                             }`}>
                                                             {tip.difficulty}
                                                         </span>
@@ -261,7 +259,7 @@ const Tips = () => {
                                                         <div className="flex items-center gap-2">
                                                             <div className="avatar">
                                                                 <div className="w-6 rounded-full">
-                                                                    <img src={tip.user.userImage} alt={tip.user.name}/>
+                                                                    <img src={tip.user.userImage} alt={tip.user.name} />
                                                                 </div>
                                                             </div>
                                                             <span className="text-sm">{tip.user.name}</span>
@@ -271,11 +269,11 @@ const Tips = () => {
                                                                 <FaRegThumbsUp className="text-primary" />
                                                                 <span>{tip.likes}</span>
                                                             </div>
-                                                            <Link
-                                                                to={`/tips/${tip._id}`}
-                                                                className="btn btn-ghost btn-xs"
-                                                            >
-                                                                <FaEye />
+
+                                                            <Link to={`/tips/${tip._id}`}>
+                                                                <button className="btn btn-primary btn-sm">
+                                                                    <FaEye/> View Tip
+                                                                </button>
                                                             </Link>
                                                         </div>
                                                     </div>
