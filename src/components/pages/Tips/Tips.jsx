@@ -277,7 +277,6 @@ const Tips = () => {
                                                             >
                                                                 <FaEye />
                                                             </Link>
-                                                            {console.log(tip._id)}
                                                         </div>
                                                     </div>
                                                 </div>

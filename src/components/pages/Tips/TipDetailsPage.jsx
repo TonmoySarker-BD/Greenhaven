@@ -35,8 +35,6 @@ const TipDetailsPage = () => {
 
     const handleLike = async () => {
         const originalLikeCount = likeCount;
-
-        // Optimistic UI
         setLikeCount(prev => prev + 1);
         setTip(prev => ({ ...prev, likes: (prev.likes || 0) + 1 }));
 
@@ -135,7 +133,7 @@ const TipDetailsPage = () => {
                                 <div className="flex items-center mb-2 sm:mb-0">
                                     <div className="avatar mr-2">
                                         <div className="w-10 h-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                                            <img src={tip.user.userImage || `https://ui-avatars.com/api/?name=${encodeURIComponent(tip.user.name || 'User')}&background=random`} alt={tip.user.name} />
+                                            <img src={tip.user.userImage} alt={tip.user.name} />
                                         </div>
                                     </div>
                                     <div>

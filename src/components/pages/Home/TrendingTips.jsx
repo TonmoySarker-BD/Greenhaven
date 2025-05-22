@@ -7,7 +7,7 @@ const TrendingTips = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetch('/gardeningTips.json')
+        fetch('http://localhost:3000/tips')
             .then((res) => {
                 if (!res.ok) throw new Error('Failed to fetch');
                 return res.json();
@@ -95,7 +95,7 @@ const TrendingTips = () => {
                             >
                                 <figure className="px-4 pt-4">
                                     <img
-                                        src={image || 'https://via.placeholder.com/400x300?text=No+Image'}
+                                        src={image}
                                         alt={title || 'Gardening Tip'}
                                         className="rounded-xl h-48 w-full object-cover"
                                     />
@@ -128,7 +128,8 @@ const TrendingTips = () => {
                                     <div className="mt-4 flex items-center">
                                         <div className="avatar mr-3">
                                             <div className="w-8 rounded-full bg-base-300 flex items-center justify-center text-primary font-bold">
-                                                <FaUser className="h-5 w-5" />
+                                                
+                                                <img src={tip.user.userImage} alt={tip.user.name} />
                                             </div>
                                         </div>
                                         <div>
