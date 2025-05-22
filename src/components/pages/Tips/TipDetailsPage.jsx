@@ -9,23 +9,20 @@ const TipDetailsPage = () => {
     const [error, setError] = useState(null);
     const [liked, setLiked] = useState(false);
     const [likeCount, setLikeCount] = useState(0);
-    
+
 
     useEffect(() => {
         const fetchTip = async () => {
             try {
-                const response = await fetch('/gardeningTips.json');
-                if (!response.ok) throw new Error('Failed to fetch tips');
+                const response = await fetch(`http://localhost:3000/tips/${id}`);
+                if (!response.ok) throw new Error('Failed to fetch tip');
 
                 const data = await response.json();
-                const foundTip = data.find(t => t.id === parseInt(id));
-                if (!foundTip) throw new Error('Tip not found');
-
-                setTip(foundTip);
-                setLikeCount(foundTip.likes || 0);
+                setTip(data);
+                setLikeCount(data.likes || 0);
 
                 const likedTips = JSON.parse(localStorage.getItem('likedTips') || '[]');
-                setLiked(likedTips.includes(parseInt(id)));
+                setLiked(likedTips.includes(id));
             } catch (err) {
                 setError(err.message);
             } finally {
@@ -35,6 +32,7 @@ const TipDetailsPage = () => {
 
         fetchTip();
     }, [id]);
+
 
     const handleLike = () => {
         const newLikeCount = liked ? likeCount - 1 : likeCount + 1;
@@ -113,7 +111,7 @@ const TipDetailsPage = () => {
                             <div className="flex items-center">
                                 <div className="avatar mr-2">
                                     <div className="w-10 rounded-full">
-                                        <FaUser className="h-full w-full p-2 bg-base-300" />
+                                        <img src={tip.user.userImage} alt={tip.user.name}/>
                                     </div>
                                 </div>
                                 <div>
