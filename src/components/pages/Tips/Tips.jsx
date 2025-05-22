@@ -14,7 +14,7 @@ const Tips = () => {
     useEffect(() => {
         const fetchTips = async () => {
             try {
-                const response = await fetch('/gardeningTips.json');
+                const response = await fetch('http://localhost:3000/tips');
                 if (!response.ok) {
                     throw new Error('Failed to fetch tips');
                 }
@@ -179,7 +179,7 @@ const Tips = () => {
                         <tbody>
                             {filteredTips.length > 0 ? (
                                 filteredTips.map(tip => (
-                                    <React.Fragment key={tip.id}>
+                                    <React.Fragment key={tip._id}>
                                         {/* Desktop Row */}
                                         <tr className="hidden md:table-row">
                                             <td>
@@ -195,6 +195,7 @@ const Tips = () => {
                                                     {tip.description}
                                                 </div>
                                             </td>
+                                            {console.log(tips)}
                                             <td>
                                                 <span className="badge badge-outline md:w-48">{tip.category}</span>
                                             </td>
@@ -209,7 +210,7 @@ const Tips = () => {
                                                 <div className="flex items-center gap-2">
                                                     <div className="avatar">
                                                         <div className="w-8 rounded-full">
-                                                            <FaUser className="h-full w-full p-1 bg-base-300" />
+                                                            <img src={tip.user.userImage} alt={tip.user.name}/>
                                                         </div>
                                                     </div>
                                                     <span>{tip.user.name}</span>
@@ -261,7 +262,7 @@ const Tips = () => {
                                                         <div className="flex items-center gap-2">
                                                             <div className="avatar">
                                                                 <div className="w-6 rounded-full">
-                                                                    <FaUser className="h-full w-full p-0.5 bg-base-300" />
+                                                                    <img src={tip.user.userImage} alt={tip.user.name}/>
                                                                 </div>
                                                             </div>
                                                             <span className="text-sm">{tip.user.name}</span>
@@ -272,7 +273,7 @@ const Tips = () => {
                                                                 <span>{tip.likes}</span>
                                                             </div>
                                                             <Link
-                                                                to={`/tips/${tip.id}`}
+                                                                to={`/tips/${tip._id}`}
                                                                 className="btn btn-ghost btn-xs"
                                                             >
                                                                 <FaEye />
