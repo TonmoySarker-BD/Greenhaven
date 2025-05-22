@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router';
-import { FaLeaf, FaSearch, FaLightbulb, FaPenAlt, FaUser, FaSignOutAlt, FaMoon, FaSun } from 'react-icons/fa';
+import { FaLeaf, FaSearch, FaLightbulb, FaPenAlt, FaUser, FaSignOutAlt, FaMoon, FaSun, FaHome } from 'react-icons/fa';
+import { BsMarkerTip } from "react-icons/bs";
 import { motion, AnimatePresence } from 'framer-motion';
 import { AuthContext } from '../../Provider/AuthProvider';
 
@@ -39,7 +40,7 @@ const NavBar = () => {
   const menu = (
     <>
       <li>
-        <NavLink to="/" end className={({ isActive }) => `hover:text-primary ${navLinkClass(isActive)}`}>Home</NavLink>
+        <NavLink to="/" end className={({ isActive }) => `hover:text-primary ${navLinkClass(isActive)}`}><FaHome className="text-sm" />Home</NavLink>
       </li>
       <li>
         <NavLink to="/explore" className={({ isActive }) => `flex items-center gap-1 hover:text-primary ${navLinkClass(isActive)}`}>
@@ -59,7 +60,7 @@ const NavBar = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/my-tips" className={({ isActive }) => `hover:text-primary ${navLinkClass(isActive)}`}>My Tips</NavLink>
+            <NavLink to="/my-tips" className={({ isActive }) => `hover:text-primary ${navLinkClass(isActive)}`}><BsMarkerTip className="text-sm" />My Tips</NavLink>
           </li>
         </>
       )}
