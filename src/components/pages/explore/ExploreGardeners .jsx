@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { FaUser, FaSeedling, FaLeaf, FaVenusMars, FaChartLine, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaUser, FaSeedling, FaLeaf, FaVenusMars, FaChartLine, FaMapMarkerAlt, FaSearch, FaFilter } from 'react-icons/fa';
 
 const ExploreGardeners = () => {
   const [gardeners, setGardeners] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeFilter, setActiveFilter] = useState('all');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
 
   useEffect(() => {
-            document.title = "Explore Gardeners | Green Heaven";
-        }, []);
+    document.title = "Explore Gardeners | Green Heaven";
+  }, []);
 
   useEffect(() => {
     const fetchGardeners = async () => {
@@ -30,9 +32,18 @@ const ExploreGardeners = () => {
     fetchGardeners();
   }, []);
 
-  const filteredGardeners = activeFilter === 'all'
-    ? gardeners
-    : gardeners.filter(gardener => gardener.status === activeFilter);
+  const filteredGardeners = gardeners.filter(gardener => {
+    // Apply status filter
+    const statusMatch = activeFilter === 'all' || gardener.status === activeFilter;
+
+    // Apply search term filter
+    const searchMatch = searchTerm === '' ||
+      gardener.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      gardener.specialty.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      gardener.location.toLowerCase().includes(searchTerm.toLowerCase());
+
+    return statusMatch && searchMatch;
+  });
 
   if (loading) return (
     <div className="flex justify-center items-center h-64">
@@ -41,7 +52,7 @@ const ExploreGardeners = () => {
   );
 
   if (error) return (
-    <div className="alert alert-error mt-20 max-w-md mx-auto mt-8">
+    <div className="alert alert-error mt-20 max-w-md mx-auto">
       <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
@@ -63,40 +74,92 @@ const ExploreGardeners = () => {
           </p>
         </div>
 
-        {/* Filter Controls */}
-        <div className="flex justify-center mb-8 space-x-4">
-          {['all', 'active', 'inactive'].map(status => (
-            <button
-              key={status}
-              onClick={() => setActiveFilter(status)}
-              className={`btn capitalize ${activeFilter === status ? 'btn-primary' : 'btn-outline'}`}
+        {/* Desktop Filters */}
+        <div className="hidden md:flex justify-between items-center mb-6 gap-4">
+          <div className="relative w-full max-w-md">
+            <input
+              type="text"
+              placeholder="Search gardeners..."
+              className="input input-bordered w-full pl-10"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <FaSearch className="absolute left-3 top-3 text-base-content/50" />
+          </div>
+          <div className="flex gap-2">
+            <select
+              className="select select-bordered w-40"
+              value={activeFilter}
+              onChange={(e) => setActiveFilter(e.target.value)}
             >
-              {status} Gardeners
-            </button>
-          ))}
+              <option value="all">All Gardeners</option>
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+            </select>
+          </div>
         </div>
 
+        {/* Mobile Search and Filter */}
+        <div className="md:hidden flex gap-2 mb-4">
+          <div className="relative w-full">
+            <input
+              type="text"
+              placeholder="Search gardeners..."
+              className="input input-bordered w-full pl-10"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <FaSearch className="absolute left-3 top-3 text-base-content/50" />
+          </div>
+          <button
+            className="btn btn-square"
+            onClick={() => setShowMobileFilters(!showMobileFilters)}
+          >
+            <FaFilter />
+          </button>
+        </div>
+
+        {/* Mobile Filters Dropdown */}
+        {showMobileFilters && (
+          <div className="md:hidden bg-base-200 p-4 rounded-lg mb-6">
+            <div className="flex gap-2">
+              {['all', 'active', 'inactive'].map(status => (
+                <button
+                  key={status}
+                  onClick={() => {
+                    setActiveFilter(status);
+                    setShowMobileFilters(false);
+                  }}
+                  className={`btn btn-sm capitalize flex-1 ${activeFilter === status ? 'btn-primary' : 'btn-outline'}`}
+                >
+                  {status}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Gardeners Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {filteredGardeners.map((gardener) => (
             <div key={gardener.id} className={`card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow ${gardener.status === 'inactive' ? 'opacity-80' : ''}`}>
               <figure className="px-6 pt-6">
                 <div className="avatar">
-                  <div className="w-32 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                  <div className="w-24 sm:w-32 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                     <img src={gardener.image} alt={gardener.name} />
                   </div>
                 </div>
               </figure>
-              <div className="card-body items-center text-center">
+              <div className="card-body items-center text-center px-4">
                 {/* Status Badge */}
                 <div className={`badge ${gardener.status === 'active' ? 'badge-primary' : 'badge-neutral'} mb-2`}>
                   {gardener.status}
                 </div>
 
-                <h2 className="card-title text-2xl">{gardener.name}</h2>
+                <h2 className="card-title text-xl sm:text-2xl">{gardener.name}</h2>
 
                 {/* Basic Info */}
-                <div className="flex flex-wrap justify-center gap-2 mb-4">
+                <div className="flex flex-wrap justify-center gap-2 mb-4 text-sm">
                   <div className="badge badge-outline">
                     <FaUser className="mr-1" /> {gardener.age} yrs
                   </div>
@@ -109,23 +172,25 @@ const ExploreGardeners = () => {
                 </div>
 
                 {/* Specialty */}
-                <div className="badge badge-primary mb-2">
+                <div className="badge badge-primary mb-3 text-sm">
                   <FaSeedling className="mr-1" /> {gardener.specialty}
                 </div>
 
-                {/* Stats */}
-                <div className="stats stats-vertical lg:stats-horizontal shadow bg-base-100 w-full mb-4">
-                  <div className="stat">
-                    <div className="stat-title">Experience</div>
-                    <div className="text-primary">{gardener.experience}</div>
+                {/* Stats - Enhanced Horizontal Layout */}
+                <div className="flex justify-around items-center bg-base-100 rounded-box p-3 mb-4 border border-base-300 shadow-sm">
+                  <div className="flex flex-col items-center px-2">
+                    <span className="text-xs font-semibold text-base-content/70 mb-1">Experience</span>
+                    <span className="text-primary font-bold text-lg">{gardener.experience}</span>
                   </div>
-                  <div className="stat">
-                    <div className="stat-title">Plants</div>
-                    <div className="text-secondary">{gardener.plants}</div>
+                  <div className="h-8 w-px bg-base-300"></div>
+                  <div className="flex flex-col items-center px-2">
+                    <span className="text-xs font-semibold text-base-content/70 mb-1">Plants</span>
+                    <span className="text-secondary font-bold text-lg">{gardener.plants}</span>
                   </div>
-                  <div className="stat">
-                    <div className="stat-title">Tips</div>
-                    <div className="">{gardener.tips}</div>
+                  <div className="h-8 w-px bg-base-300"></div>
+                  <div className="flex flex-col items-center px-2">
+                    <span className="text-xs font-semibold text-base-content/70 mb-1">Tips</span>
+                    <span className="font-bold text-lg">{gardener.tips}</span>
                   </div>
                 </div>
 
@@ -144,13 +209,9 @@ const ExploreGardeners = () => {
                 </div>
 
                 {/* Action Buttons */}
-                <div className="card-actions">
-                  <button className="btn btn-primary">
-                    View Profile
-                  </button>
-                  <button className="btn btn-outline">
-                    Message
-                  </button>
+                <div className="card-actions flex gap-2">
+                  <button className="btn btn-primary w-full sm:w-auto">View Profile</button>
+                  <button className="btn btn-outline w-full sm:w-auto">Message</button>
                 </div>
               </div>
             </div>
@@ -164,10 +225,10 @@ const ExploreGardeners = () => {
             <h3 className="text-xl font-medium">No gardeners found</h3>
             <p className="text-base-content/70 mt-2">
               {activeFilter === 'active'
-                ? "There are currently no active gardeners"
+                ? "There are currently no active gardeners matching your search"
                 : activeFilter === 'inactive'
-                  ? "There are currently no inactive gardeners"
-                  : "No gardener data available"}
+                  ? "There are currently no inactive gardeners matching your search"
+                  : "No gardener data available matching your search"}
             </p>
           </div>
         )}

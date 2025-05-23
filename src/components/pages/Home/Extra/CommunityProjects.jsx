@@ -66,9 +66,9 @@ const CommunityProjects = () => {
                 />
               </figure>
               <div className="card-body">
-                <div className="flex justify-between items-start">
+                <div className="flex justify-between items-start gap-2">
                   <h3 className="card-title">{project.title}</h3>
-                  <span className="badge badge-outline">{project.location}</span>
+                  <span className="badge w-32 badge-outline">{project.location}</span>
                 </div>
                 <p className="text-base-content/80">{project.description}</p>
 
