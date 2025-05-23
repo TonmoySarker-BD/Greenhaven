@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FaLeaf, FaStar, FaSeedling } from 'react-icons/fa';
+import { Link } from 'react-router';
 
 const FeaturedGardeners = () => {
   const [activeGardeners, setActiveGardeners] = useState([]);
@@ -7,9 +8,9 @@ const FeaturedGardeners = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('/gardeners.json')
+    fetch('http://localhost:3000/featured-gardeners')
       .then((res) => {
-        if (!res.ok) throw new Error('Failed to fetch gardeners.json');
+        if (!res.ok) throw new Error('');
         return res.json();
       })
       .then((data) => {
@@ -98,7 +99,9 @@ const FeaturedGardeners = () => {
         </div>
 
         <div className="text-center mt-12">
-          <button className="btn btn-outline btn-primary">View More</button>
+          <Link to={'/explore'}>
+          <button className="btn btn-outline btn-primary">View All Gardeners</button>
+          </Link>
         </div>
       </div>
     </div>

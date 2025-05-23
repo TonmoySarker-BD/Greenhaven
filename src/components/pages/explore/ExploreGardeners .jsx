@@ -10,7 +10,7 @@ const ExploreGardeners = () => {
   useEffect(() => {
     const fetchGardeners = async () => {
       try {
-        const response = await fetch('/gardeners.json');
+        const response = await fetch('http://localhost:3000/gardeners');
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }
