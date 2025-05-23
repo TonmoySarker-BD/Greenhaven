@@ -21,7 +21,7 @@ const MyTips = () => {
       })
       .catch(err => {
         console.error('Error fetching tips:', err);
-        Swal.fire('Error', 'Failed to load tips', 'error');
+        Swal.fire('Error', 'Failed to load tips', err);
       });
   }, [user]);
 

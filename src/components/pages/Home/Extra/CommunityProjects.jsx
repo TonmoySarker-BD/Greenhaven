@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FaUsers, FaHandsHelping, FaRegHeart, FaRegComment } from 'react-icons/fa';
+import Swal from 'sweetalert2';
 
 const CommunityProjects = () => {
   const [projects, setProjects] = useState([]);
@@ -15,6 +16,7 @@ const CommunityProjects = () => {
       .catch((error) => {
         console.error('Error fetching community projects:', error);
         setLoading(false);
+        Swal.fire('Error', 'Failed to load ', error);
       });
   }, []);
 

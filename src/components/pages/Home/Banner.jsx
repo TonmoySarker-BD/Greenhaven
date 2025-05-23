@@ -5,6 +5,7 @@ import { Typewriter } from 'react-simple-typewriter';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import Swal from 'sweetalert2';
 
 const Banner = () => {
   const [events, setEvents] = useState([]);
@@ -19,8 +20,8 @@ const Banner = () => {
       }
       )
       .catch(err => {
-        console.error('Failed to fetch events:', err);
         setLoading(false);
+        Swal.fire('Error', 'Failed to load ', err);
       }
       );
   }, []);

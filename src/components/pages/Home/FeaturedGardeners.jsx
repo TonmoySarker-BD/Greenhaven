@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { FaLeaf, FaStar, FaSeedling } from 'react-icons/fa';
 import { Link } from 'react-router';
+import Swal from 'sweetalert2';
 
 const FeaturedGardeners = () => {
   const [activeGardeners, setActiveGardeners] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetch('https://garden-heaven-server.vercel.app/featured-gardeners')
       .then((res) => {
-        if (!res.ok) throw new Error('');
+        if (!res.ok)
         return res.json();
       })
       .then((data) => {
@@ -20,7 +20,7 @@ const FeaturedGardeners = () => {
       })
       .catch((error) => {
         console.error('Error fetching gardeners:', error);
-        setError(error.message);
+        Swal.fire('Error', 'Failed to load ', error);
         setLoading(false);
       });
   }, []);
@@ -29,14 +29,6 @@ const FeaturedGardeners = () => {
     return (
       <div className="text-center py-20">
         <span className="loading loading-spinner loading-lg text-primary"></span>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="text-center py-20 text-red-500">
-        <p>Error: {error}</p>
       </div>
     );
   }

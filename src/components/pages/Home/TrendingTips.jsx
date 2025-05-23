@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { FaLeaf, FaUser, FaSeedling, FaChartLine, FaEye } from 'react-icons/fa';
 import { Link } from 'react-router';
+import Swal from 'sweetalert2';
 
 const TrendingTips = () => {
     const [trendingTips, setTrendingTips] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
 
     useEffect(() => {
         fetch('https://garden-heaven-server.vercel.app/trending-tips')
             .then((res) => {
-                if (!res.ok) throw new Error('Failed to fetch');
+                if (!res.ok)
                 return res.json();
             })
             .then((data) => {
@@ -25,9 +25,8 @@ const TrendingTips = () => {
                 setLoading(false);
             })
             .catch((error) => {
-                console.error('Error fetching tips:', error);
-                setError(error.message);
                 setLoading(false);
+                Swal.fire('Error', 'Failed to load ', error);
             });
     }, []);
 
@@ -52,16 +51,8 @@ const TrendingTips = () => {
         );
     }
 
-    if (error) {
-        return (
-            <div className="text-center py-20 text-red-500">
-                <p>Error: {error}</p>
-            </div>
-        );
-    }
-
     return (
-        <div className="bg-base-100 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="bg-base-100 py-12 px-4 mt-5 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
                 <div className="text-center mb-12">
                     <h2 className="text-3xl font-bold text-base-content mb-2">
