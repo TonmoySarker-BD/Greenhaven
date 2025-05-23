@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router';
 import { FaLeaf, FaHome, FaSeedling } from 'react-icons/fa';
 import { Fade } from 'react-awesome-reveal';
@@ -6,6 +6,9 @@ import animation from '../../assets/Animation.json';
 import Lottie from 'lottie-react';
 
 const NotFoundPage = () => {
+    useEffect(() => {
+        document.title = "Not Found | Green Heaven";
+    }, []);
     return (
         <div className="min-h-screen bg-base-100 flex items-center justify-center p-6 text-center">
             <div className="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">

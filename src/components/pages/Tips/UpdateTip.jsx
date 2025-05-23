@@ -31,6 +31,7 @@ const UpdateTip = () => {
         setIsLoading(true);
         const response = await fetch(`https://garden-heaven-server.vercel.app/tips/${id}`);
         const foundTip = await response.json();
+        document.title = `Editing ${foundTip.title}| Green Heaven`;
 
         if (foundTip) {
           setFormData({

@@ -12,6 +12,7 @@ const Tips = () => {
     const [showMobileFilters, setShowMobileFilters] = useState(false);
 
     useEffect(() => {
+         document.title = "Gardening Tips & Guides | Green Heaven";
         const fetchTips = async () => {
             try {
                 const response = await fetch('https://garden-heaven-server.vercel.app/tips');

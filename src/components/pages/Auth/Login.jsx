@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router';
 import { FaLeaf, FaUser, FaLock } from 'react-icons/fa';
 import { FcGoogle } from "react-icons/fc";
@@ -79,6 +79,10 @@ const Login = () => {
                 return 'Login failed. Please try again';
         }
     };
+
+    useEffect(() => {
+            document.title = "Log In | Green Heaven";
+        }, []);
 
     return (
         <div className="min-h-screen bg-base-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">

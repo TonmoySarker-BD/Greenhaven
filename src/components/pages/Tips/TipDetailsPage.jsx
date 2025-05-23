@@ -22,6 +22,7 @@ const TipDetailsPage = () => {
                 }
                 const data = await response.json();
                 setTip(data);
+                document.title = `${data.title}| Green Heaven`;
                 setLikeCount(data.likes || 0);
             } catch (err) {
                 setError(err.message);

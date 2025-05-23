@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { FcGoogle } from 'react-icons/fc';
 import { AuthContext } from '../../../Provider/AuthProvider';
@@ -104,6 +104,9 @@ const Register = () => {
             setIsLoading(false);
         }
     };
+    useEffect(() => {
+            document.title = "Sign In | Green Heaven";
+        }, []);
 
     return (
         <div className="min-h-screen bg-base-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">

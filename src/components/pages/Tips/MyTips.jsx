@@ -9,6 +9,10 @@ const MyTips = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+            document.title = "My Tips | Green Heaven";
+        }, []);
+
+  useEffect(() => {
     fetch('https://garden-heaven-server.vercel.app/tips')
       .then(res => res.json())
       .then(data => {

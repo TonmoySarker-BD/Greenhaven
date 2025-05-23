@@ -1,10 +1,13 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { FaLeaf } from 'react-icons/fa';
 import { AuthContext } from '../../../Provider/AuthProvider';
 import Swal from 'sweetalert2';
 
 const ShareTip = () => {
     const { user: currentUser } = useContext(AuthContext);
+    useEffect(() => {
+            document.title = "Share Tip | Green Heaven";
+        }, []);
 
     const [formData, setFormData] = useState({
         title: '',

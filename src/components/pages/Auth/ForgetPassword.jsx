@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { FaLeaf, FaEnvelope, FaArrowLeft } from 'react-icons/fa';
 import Swal from 'sweetalert2';
@@ -56,6 +56,9 @@ const ForgotPassword = () => {
             setIsLoading(false);
         }
     };
+    useEffect(() => {
+            document.title = "Forgot Password | Green Heaven";
+        }, []);
 
     return (
         <div className="min-h-screen bg-base-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">

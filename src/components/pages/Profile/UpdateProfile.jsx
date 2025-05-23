@@ -50,8 +50,8 @@ const handleUpdate = async (e) => {
         <form onSubmit={handleUpdate} className="space-y-4 mb-4">
           <div>
             <label className="block text-sm text-gray-600 mb-1">Full Name</label>
-            <div className="flex items-center p-2 bg-gray-50 rounded-lg">
-              <FaUser className="text-gray-400 mr-2" />
+            <div className="flex items-center p-2 bg-gray-400 rounded-lg">
+              <FaUser className="text-black mr-2" />
               <input
                 type="text"
                 value={name}
@@ -65,8 +65,8 @@ const handleUpdate = async (e) => {
 
           <div>
             <label className="block text-sm text-gray-600 mb-1">Photo URL</label>
-            <div className="flex items-center p-2 bg-gray-50 rounded-lg">
-              <FaImage className="text-gray-400 mr-2" />
+            <div className="flex items-center p-2 bg-gray-400 rounded-lg">
+              <FaImage className="text-black mr-2" />
               <input
                 type="text"
                 value={photoURL}

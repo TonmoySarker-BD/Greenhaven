@@ -8,6 +8,10 @@ const ExploreGardeners = () => {
   const [activeFilter, setActiveFilter] = useState('all');
 
   useEffect(() => {
+            document.title = "Explore Gardeners | Green Heaven";
+        }, []);
+
+  useEffect(() => {
     const fetchGardeners = async () => {
       try {
         const response = await fetch('https://garden-heaven-server.vercel.app/gardeners');

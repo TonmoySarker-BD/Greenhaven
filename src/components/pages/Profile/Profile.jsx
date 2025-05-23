@@ -1,4 +1,4 @@
-import React, { use } from 'react';
+import React, { use, useEffect } from 'react';
 import { FaUser, FaEnvelope, FaSignOutAlt } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router';
 import { AuthContext } from '../../../Provider/AuthProvider';
@@ -15,6 +15,10 @@ const Profile = () => {
       console.error("Failed to log out", error);
     }
   };
+
+  useEffect(() => {
+            document.title = `${user?.displayName || 'User'}'s Profile | Green Heaven`;
+        }, []);
 
   return (
     <div className="py-20 bg-base-50 flex items-center justify-center p-4">
