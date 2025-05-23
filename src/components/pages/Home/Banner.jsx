@@ -8,13 +8,30 @@ import 'swiper/css/navigation';
 
 const Banner = () => {
   const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/events.json')
+    fetch('http://localhost:3000/events')
       .then(res => res.json())
-      .then(data => setEvents(data))
-      .catch(err => console.error('Failed to fetch events:', err));
+      .then(data => {
+        setEvents(data);
+        setLoading(false);
+      }
+      )
+      .catch(err => {
+        console.error('Failed to fetch events:', err);
+        setLoading(false);
+      }
+      );
   }, []);
+
+    if (loading) {
+    return (
+      <div className="min-h-screen flex  justify-center items-center">
+        <span className="loading loading-spinner loading-xl"></span>
+      </div>
+    );
+  }
 
   return (
     <div className="relative">
@@ -41,7 +58,7 @@ const Banner = () => {
               }}
             >
               <div className="container mx-auto px-6 md:px-12 z-10 text-white">
-                <div className="max-w-lg bg-black/30 backdrop-blur-sm p-8 rounded-lg">
+                <div className="max-w-2xl bg-black/30 backdrop-blur-sm p-8 rounded-lg">
                   <span className="text-primary font-semibold">{event.date}</span>
 
                   <h2 className="text-3xl md:text-4xl font-bold mt-2 mb-4">
