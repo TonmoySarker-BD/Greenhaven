@@ -8,21 +8,28 @@ const FeaturedGardeners = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('https://garden-heaven-server.vercel.app/featured-gardeners')
-      .then((res) => {
-        if (!res.ok)
-        return res.json();
-      })
-      .then((data) => {
+    const fetchGardeners = async () => {
+      setLoading(true);
+      try {
+        const res = await fetch('https://garden-heaven-server.vercel.app/featured-gardeners');
+        if (!res.ok) {
+          const errorData = await res.json().catch(() => ({}));
+          throw new Error(errorData.message || 'Failed to fetch gardeners');
+        }
+        const data = await res.json();
+        if (!Array.isArray(data)) {
+          throw new Error('Unexpected data format');
+        }
+
         const active = data.filter((gardener) => gardener.status === 'active');
         setActiveGardeners(active);
+      } catch (error) {
+        Swal.fire('Error', error.message || 'Failed to load gardeners');
+      } finally {
         setLoading(false);
-      })
-      .catch((error) => {
-        console.error('Error fetching gardeners:', error);
-        Swal.fire('Error', 'Failed to load ', error);
-        setLoading(false);
-      });
+      }
+    };
+    fetchGardeners();
   }, []);
 
   if (loading) {
@@ -92,7 +99,7 @@ const FeaturedGardeners = () => {
 
         <div className="text-center mt-12">
           <Link to={'/explore'}>
-          <button className="btn btn-outline btn-primary">View All Gardeners</button>
+            <button className="btn btn-outline btn-primary">View All Gardeners</button>
           </Link>
         </div>
       </div>

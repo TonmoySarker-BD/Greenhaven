@@ -12,21 +12,31 @@ const Banner = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('https://garden-heaven-server.vercel.app/events')
-      .then(res => res.json())
-      .then(data => {
+    const fetchEvents = async () => {
+      setLoading(true);
+      try {
+        const res = await fetch('https://garden-heaven-server.vercel.app/events');
+        if (!res.ok) {
+          const errorData = await res.json().catch(() => ({}));
+          throw new Error(errorData.message || 'Failed to fetch events');
+        }
+        const data = await res.json();
+        if (!Array.isArray(data)) {
+          throw new Error('Unexpected data format from server');
+        }
+
         setEvents(data);
+      } catch (err) {
+        Swal.fire('Error', err.message || 'Failed to load events');
+      } finally {
         setLoading(false);
       }
-      )
-      .catch(err => {
-        setLoading(false);
-        Swal.fire('Error', 'Failed to load ', err);
-      }
-      );
+    };
+    fetchEvents();
   }, []);
 
-    if (loading) {
+
+  if (loading) {
     return (
       <div className="min-h-screen flex  justify-center items-center">
         <span className="loading loading-spinner loading-xl"></span>

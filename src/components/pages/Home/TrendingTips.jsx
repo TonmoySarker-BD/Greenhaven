@@ -8,26 +8,34 @@ const TrendingTips = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('https://garden-heaven-server.vercel.app/trending-tips')
-            .then((res) => {
-                if (!res.ok)
-                return res.json();
-            })
-            .then((data) => {
+        const fetchTrendingTips = async () => {
+            setLoading(true);
+            try {
+                const res = await fetch('https://garden-heaven-server.vercel.app/trending-tips');
+
+                if (!res.ok) {
+                    const errorData = await res.json().catch(() => ({}));
+                    throw new Error(errorData.message || 'Failed to fetch trending tips');
+                }
+
+                const data = await res.json();
+
                 if (!Array.isArray(data)) {
                     throw new Error('Data format error');
                 }
+
                 const publicTips = data
                     .filter((tip) => tip.availability === 'Public')
                     .sort((a, b) => b.likes - a.likes)
                     .slice(0, 6);
                 setTrendingTips(publicTips);
+            } catch (error) {
+                Swal.fire('Error', error.message || 'Failed to load trending tips');
+            } finally {
                 setLoading(false);
-            })
-            .catch((error) => {
-                setLoading(false);
-                Swal.fire('Error', 'Failed to load ', error);
-            });
+            }
+        };
+        fetchTrendingTips();
     }, []);
 
     const getDifficultyColor = (difficulty) => {
@@ -67,7 +75,7 @@ const TrendingTips = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {trendingTips.map((tip) => {
                         const {
-                            id,
+                            _id,
                             image,
                             title,
                             difficulty,
@@ -82,7 +90,7 @@ const TrendingTips = () => {
 
                         return (
                             <div
-                                key={id}
+                                key={_id}
                                 className="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow"
                             >
                                 <figure className="px-4 pt-4">

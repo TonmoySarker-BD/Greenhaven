@@ -6,23 +6,23 @@ import Swal from 'sweetalert2';
 const MyTips = () => {
   const { user } = useContext(AuthContext);
   const [tips, setTips] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-            document.title = "My Tips | Green Heaven";
-        }, []);
-
-  useEffect(() => {
-    fetch('https://garden-heaven-server.vercel.app/tips')
-      .then(res => res.json())
-      .then(data => {
+    const fetchTips = async () => {
+      try {
+        const res = await fetch('https://garden-heaven-server.vercel.app/tips');
+        const data = await res.json();
         const userTips = data.filter(tip => tip.user?.email === user?.email);
         setTips(userTips);
-      })
-      .catch(err => {
-        console.error('Error fetching tips:', err);
-        Swal.fire('Error', 'Failed to load tips', err);
-      });
+      } catch (err) {
+        Swal.fire('Error', err.message || 'Failed to load tips');
+      } finally {
+        setLoading(false); // Ensure loading is turned off no matter what
+      }
+    };
+    fetchTips();
   }, [user]);
 
   const handleDelete = (id) => {
@@ -57,6 +57,13 @@ const MyTips = () => {
     });
   };
 
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-96">
+        <span className="loading loading-spinner loading-lg text-primary"></span>
+      </div>
+    );
+  }
 
   return (
     <div className="p-4 pt-20 max-w-6xl mx-auto">
@@ -78,7 +85,7 @@ const MyTips = () => {
           <tbody>
             {tips.length > 0 ? (
               tips.map(tip => (
-                <tr key={tip.id}>
+                <tr key={tip._id}>
                   <td>
                     <div className="h-16 w-16 rounded overflow-hidden">
                       <img
@@ -121,7 +128,7 @@ const MyTips = () => {
       <div className="sm:hidden space-y-4">
         {tips.length > 0 ? (
           tips.map(tip => (
-            <div key={tip.id} className="card bg-base-200 shadow-sm">
+            <div key={tip._id} className="card bg-base-200 shadow-sm">
               <figure className="p-4">
                 <img
                   src={tip.image}

@@ -117,15 +117,15 @@ const ExploreGardeners = () => {
                 <div className="stats stats-vertical lg:stats-horizontal shadow bg-base-100 w-full mb-4">
                   <div className="stat">
                     <div className="stat-title">Experience</div>
-                    <div className="stat-value text-primary">{gardener.experience}</div>
+                    <div className="text-primary">{gardener.experience}</div>
                   </div>
                   <div className="stat">
                     <div className="stat-title">Plants</div>
-                    <div className="stat-value text-secondary">{gardener.plants}</div>
+                    <div className="text-secondary">{gardener.plants}</div>
                   </div>
                   <div className="stat">
                     <div className="stat-title">Tips</div>
-                    <div className="stat-value">{gardener.tips}</div>
+                    <div className="">{gardener.tips}</div>
                   </div>
                 </div>
 

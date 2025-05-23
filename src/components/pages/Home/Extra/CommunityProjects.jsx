@@ -7,18 +7,32 @@ const CommunityProjects = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('https://garden-heaven-server.vercel.app/community-projects')
-      .then((res) => res.json())
-      .then((data) => {
+    const fetchProjects = async () => {
+      setLoading(true);
+      try {
+        const res = await fetch('https://garden-heaven-server.vercel.app/community-projects');
+
+        if (!res.ok) {
+          const errorData = await res.json().catch(() => ({}));
+          throw new Error(errorData.message || 'Failed to fetch community projects');
+        }
+
+        const data = await res.json();
+
+        if (!Array.isArray(data)) {
+          throw new Error('Unexpected data format');
+        }
+
         setProjects(data);
+      } catch (error) {
+        Swal.fire('Error', error.message || 'Failed to load community projects');
+      } finally {
         setLoading(false);
-      })
-      .catch((error) => {
-        console.error('Error fetching community projects:', error);
-        setLoading(false);
-        Swal.fire('Error', 'Failed to load ', error);
-      });
+      }
+    };
+    fetchProjects();
   }, []);
+
 
   if (loading) {
     return (
