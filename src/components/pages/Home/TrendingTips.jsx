@@ -8,7 +8,7 @@ const TrendingTips = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetch('http://localhost:3000/trending-tips')
+        fetch('https://garden-heaven-server.vercel.app/trending-tips')
             .then((res) => {
                 if (!res.ok) throw new Error('Failed to fetch');
                 return res.json();

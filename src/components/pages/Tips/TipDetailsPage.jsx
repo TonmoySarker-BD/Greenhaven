@@ -15,7 +15,7 @@ const TipDetailsPage = () => {
             setLoading(true);
             setError(null);
             try {
-                const response = await fetch(`http://localhost:3000/tips/${id}`);
+                const response = await fetch(`https://garden-heaven-server.vercel.app/tips/${id}`);
                 if (!response.ok) {
                     const errorData = await response.json().catch(() => ({}));
                     throw new Error(errorData.message || 'Failed to fetch tip');
@@ -39,7 +39,7 @@ const TipDetailsPage = () => {
         setTip(prev => ({ ...prev, likes: (prev.likes || 0) + 1 }));
 
         try {
-            const response = await fetch(`http://localhost:3000/tips/${id}/like`, {
+            const response = await fetch(`https://garden-heaven-server.vercel.app/tips/${id}/like`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
             });

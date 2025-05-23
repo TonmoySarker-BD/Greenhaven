@@ -10,7 +10,7 @@ const ExploreGardeners = () => {
   useEffect(() => {
     const fetchGardeners = async () => {
       try {
-        const response = await fetch('http://localhost:3000/gardeners');
+        const response = await fetch('https://garden-heaven-server.vercel.app/gardeners');
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }

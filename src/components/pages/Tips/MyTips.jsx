@@ -9,7 +9,7 @@ const MyTips = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('http://localhost:3000/tips')
+    fetch('https://garden-heaven-server.vercel.app/tips')
       .then(res => res.json())
       .then(data => {
         const userTips = data.filter(tip => tip.user?.email === user?.email);
@@ -33,7 +33,7 @@ const MyTips = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const response = await fetch(`http://localhost:3000/tips/${id}`, {
+          const response = await fetch(`https://garden-heaven-server.vercel.app/tips/${id}`, {
             method: 'DELETE',
           });
 

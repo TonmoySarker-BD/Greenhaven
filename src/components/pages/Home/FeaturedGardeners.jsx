@@ -8,7 +8,7 @@ const FeaturedGardeners = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:3000/featured-gardeners')
+    fetch('https://garden-heaven-server.vercel.app/featured-gardeners')
       .then((res) => {
         if (!res.ok) throw new Error('');
         return res.json();

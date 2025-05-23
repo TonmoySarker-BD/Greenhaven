@@ -11,7 +11,7 @@ const Banner = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://localhost:3000/events')
+    fetch('https://garden-heaven-server.vercel.app/events')
       .then(res => res.json())
       .then(data => {
         setEvents(data);

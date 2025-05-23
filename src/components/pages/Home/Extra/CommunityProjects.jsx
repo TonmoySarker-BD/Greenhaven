@@ -6,7 +6,7 @@ const CommunityProjects = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://localhost:3000/community-projects')
+    fetch('https://garden-heaven-server.vercel.app/community-projects')
       .then((res) => res.json())
       .then((data) => {
         setProjects(data);

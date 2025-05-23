@@ -14,7 +14,7 @@ const Tips = () => {
     useEffect(() => {
         const fetchTips = async () => {
             try {
-                const response = await fetch('http://localhost:3000/tips');
+                const response = await fetch('https://garden-heaven-server.vercel.app/tips');
                 if (!response.ok) {
                     throw new Error('Failed to fetch tips');
                 }
