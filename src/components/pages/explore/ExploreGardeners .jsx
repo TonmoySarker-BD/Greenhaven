@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaUser, FaSeedling, FaLeaf, FaVenusMars, FaChartLine, FaMapMarkerAlt, FaSearch, FaFilter } from 'react-icons/fa';
+import GardenerModal from '../../common/GardenerModal';
+import GardenerCard from '../../common/GardenerCard';
 
 const ExploreGardeners = () => {
   const [gardeners, setGardeners] = useState([]);
@@ -8,6 +10,7 @@ const ExploreGardeners = () => {
   const [activeFilter, setActiveFilter] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [showMobileFilters, setShowMobileFilters] = useState(false);
+
 
   useEffect(() => {
     document.title = "Explore Gardeners | Green Heaven";
@@ -140,81 +143,83 @@ const ExploreGardeners = () => {
         )}
 
         {/* Gardeners Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {filteredGardeners.map((gardener) => (
-            <div key={gardener.id} className={`card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow ${gardener.status === 'inactive' ? 'opacity-80' : ''}`}>
-              <figure className="px-6 pt-6">
-                <div className="avatar">
-                  <div className="w-24 sm:w-32 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                    <img src={gardener.image} alt={gardener.name} />
-                  </div>
-                </div>
-              </figure>
-              <div className="card-body items-center text-center px-4">
-                {/* Status Badge */}
-                <div className={`badge ${gardener.status === 'active' ? 'badge-primary' : 'badge-neutral'} mb-2`}>
-                  {gardener.status}
-                </div>
+            <GardenerCard key={gardener._id} gardener={gardener} />
 
-                <h2 className="card-title text-xl sm:text-2xl">{gardener.name}</h2>
+            // <div key={gardener.id} className={`card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow ${gardener.status === 'inactive' ? 'opacity-80' : ''}`}>
+            //   <figure className="px-6 pt-6">
+            //     <div className="avatar">
+            //       <div className="w-24 sm:w-32 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+            //         <img src={gardener.image} alt={gardener.name} />
+            //       </div>
+            //     </div>
+            //   </figure>
+            //   <div className="card-body items-center text-center px-4">
+            //     {/* Status Badge */}
+            //     <div className={`badge ${gardener.status === 'active' ? 'badge-primary' : 'badge-neutral'} mb-2`}>
+            //       {gardener.status}
+            //     </div>
 
-                {/* Basic Info */}
-                <div className="flex flex-wrap justify-center gap-2 mb-4 text-sm">
-                  <div className="badge badge-outline">
-                    <FaUser className="mr-1" /> {gardener.age} yrs
-                  </div>
-                  <div className="badge badge-outline">
-                    <FaVenusMars className="mr-1" /> {gardener.gender}
-                  </div>
-                  <div className="badge badge-outline">
-                    <FaMapMarkerAlt className="mr-1" /> {gardener.location}
-                  </div>
-                </div>
+            //     <h2 className="card-title text-xl sm:text-2xl">{gardener.name}</h2>
 
-                {/* Specialty */}
-                <div className="badge badge-primary mb-3 text-sm">
-                  <FaSeedling className="mr-1" /> {gardener.specialty}
-                </div>
+            //     {/* Basic Info */}
+            //     <div className="flex flex-wrap justify-center gap-2 mb-4 text-sm">
+            //       <div className="badge badge-outline">
+            //         <FaUser className="mr-1" /> {gardener.age} yrs
+            //       </div>
+            //       <div className="badge badge-outline">
+            //         <FaVenusMars className="mr-1" /> {gardener.gender}
+            //       </div>
+            //       <div className="badge badge-outline">
+            //         <FaMapMarkerAlt className="mr-1" /> {gardener.location}
+            //       </div>
+            //     </div>
 
-                {/* Stats - Enhanced Horizontal Layout */}
-                <div className="flex justify-around items-center bg-base-100 rounded-box p-3 mb-4 border border-base-300 shadow-sm">
-                  <div className="flex flex-col items-center px-2">
-                    <span className="text-xs font-semibold text-base-content/70 mb-1">Experience</span>
-                    <span className="text-primary font-bold text-lg">{gardener.experience}</span>
-                  </div>
-                  <div className="h-8 w-px bg-base-300"></div>
-                  <div className="flex flex-col items-center px-2">
-                    <span className="text-xs font-semibold text-base-content/70 mb-1">Plants</span>
-                    <span className="text-secondary font-bold text-lg">{gardener.plants}</span>
-                  </div>
-                  <div className="h-8 w-px bg-base-300"></div>
-                  <div className="flex flex-col items-center px-2">
-                    <span className="text-xs font-semibold text-base-content/70 mb-1">Tips</span>
-                    <span className="font-bold text-lg">{gardener.tips}</span>
-                  </div>
-                </div>
+            //     {/* Specialty */}
+            //     <div className="badge badge-primary mb-3 text-sm">
+            //       <FaSeedling className="mr-1" /> {gardener.specialty}
+            //     </div>
 
-                {/* Rating */}
-                <div className="rating rating-sm mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <input
-                      key={i}
-                      type="radio"
-                      name={`rating-${gardener.id}`}
-                      className="mask mask-star-2 bg-orange-400"
-                      checked={i < Math.round(gardener.rating)}
-                      readOnly
-                    />
-                  ))}
-                </div>
+            //     {/* Stats - Enhanced Horizontal Layout */}
+            //     <div className="flex justify-around items-center bg-base-100 rounded-box p-3 mb-4 border border-base-300 shadow-sm">
+            //       <div className="flex flex-col items-center px-2">
+            //         <span className="text-xs font-semibold text-base-content/70 mb-1">Experience</span>
+            //         <span className="text-primary font-bold text-lg">{gardener.experience}</span>
+            //       </div>
+            //       <div className="h-8 w-px bg-base-300"></div>
+            //       <div className="flex flex-col items-center px-2">
+            //         <span className="text-xs font-semibold text-base-content/70 mb-1">Plants</span>
+            //         <span className="text-secondary font-bold text-lg">{gardener.plants}</span>
+            //       </div>
+            //       <div className="h-8 w-px bg-base-300"></div>
+            //       <div className="flex flex-col items-center px-2">
+            //         <span className="text-xs font-semibold text-base-content/70 mb-1">Tips</span>
+            //         <span className="font-bold text-lg">{gardener.tips}</span>
+            //       </div>
+            //     </div>
 
-                {/* Action Buttons */}
-                <div className="card-actions flex gap-2">
-                  <button className="btn btn-primary w-full sm:w-auto">View Profile</button>
-                  <button className="btn btn-outline w-full sm:w-auto">Message</button>
-                </div>
-              </div>
-            </div>
+            //     {/* Rating */}
+            //     <div className="rating rating-sm mb-4">
+            //       {[...Array(5)].map((_, i) => (
+            //         <input
+            //           key={i}
+            //           type="radio"
+            //           name={`rating-${gardener.id}`}
+            //           className="mask mask-star-2 bg-orange-400"
+            //           checked={i < Math.round(gardener.rating)}
+            //           readOnly
+            //         />
+            //       ))}
+            //     </div>
+
+            //     {/* Action Buttons */}
+            //     <div className="card-actions flex gap-2">
+            //       <button className="btn btn-primary w-full sm:w-auto">View Profile</button>
+            //       <button className="btn btn-outline w-full sm:w-auto">Message</button>
+            //     </div>
+            //   </div>
+            // </div>
           ))}
         </div>
 

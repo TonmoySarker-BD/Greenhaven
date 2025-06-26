@@ -38,18 +38,18 @@ const TrendingTips = () => {
         fetchTrendingTips();
     }, []);
 
-    const getDifficultyColor = (difficulty) => {
-        switch (difficulty) {
-            case 'Easy':
-                return 'badge-success';
-            case 'Medium':
-                return 'badge-warning';
-            case 'Hard':
-                return 'badge-error';
-            default:
-                return 'badge-info';
-        }
-    };
+    // const getDifficultyColor = (difficulty) => {
+    //     switch (difficulty) {
+    //         case 'Easy':
+    //             return 'badge-success';
+    //         case 'Medium':
+    //             return 'badge-warning';
+    //         case 'Hard':
+    //             return 'badge-error';
+    //         default:
+    //             return 'badge-info';
+    //     }
+    // };
 
     if (loading) {
         return (
@@ -72,13 +72,12 @@ const TrendingTips = () => {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                     {trendingTips.map((tip) => {
                         const {
                             _id,
                             image,
                             title,
-                            difficulty,
                             category,
                             plantType,
                             // description,
@@ -91,7 +90,7 @@ const TrendingTips = () => {
                         return (
                             <div
                                 key={_id}
-                                className="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow"
+                                className="card bg-base-200 max-w-[320px] mx-auto shadow-xl hover:shadow-2xl transition-shadow"
                             >
                                 <figure className="px-4 pt-4">
                                     <img
@@ -101,19 +100,31 @@ const TrendingTips = () => {
                                     />
                                 </figure>
                                 <div className="card-body">
-                                    <div className="flex flex-wrap gap-2 mb-2">
-                                        <div className={`badge ${getDifficultyColor(difficulty)}`}>
-                                            {difficulty || 'Unknown'}
-                                        </div>
+                                    {/* Category and Plant Type Badges */}
+                                    <div className='flex items-center justify-between gap-2 mt-2'>
                                         <div className="badge badge-primary">{category || 'General'}</div>
                                         <div className="badge badge-outline">
-                                            <FaSeedling className="mr-1" /> {plantType || 'Various'}
+                                            <FaSeedling className="" /> {plantType || 'Various'}
                                         </div>
-                                    </div>
-                                    <h3 className="card-title">{title}</h3>
-                                    {/* <p className="text-base-content/80 line-clamp-3">{description}</p> */}
+                                
 
-                                    {/* Tags
+                                    {/* <div className={`badge ${getDifficultyColor(difficulty)}`}>
+                                            {difficulty || 'Unknown'}
+                                        </div> */}
+                                    {/* <div className="badge badge-primary">{category || 'General'}</div>
+                                        <div className="badge badge-outline">
+                                            <FaSeedling className="mr-1" /> {plantType || 'Various'}
+                                        </div> */}
+                                </div>
+                                <h3 className="card-title">{title}</h3>
+
+
+
+
+
+                                {/* <p className="text-base-content/80 line-clamp-3">{description}</p> */}
+
+                                {/* Tags
                                     <div className="mt-2 flex flex-wrap gap-1">
                                         {tags.map((tag, idx) => (
                                             <div
@@ -125,7 +136,7 @@ const TrendingTips = () => {
                                         ))}
                                     </div> */}
 
-                                    {/* <div className="mt-4 flex items-center">
+                                {/* <div className="mt-4 flex items-center">
                                         <div className="avatar mr-3">
                                             <div className="w-8 rounded-full bg-base-300 flex items-center justify-center text-primary font-bold">
 
@@ -138,34 +149,34 @@ const TrendingTips = () => {
                                         </div>
                                     </div> */}
 
-                                    <div className='flex justify-between items-center'>
-                                        <p className="">
-                                            <FaLeaf className="inline mr-2 text-green-600" />
-                                            {likes} Likes
-                                        </p>
-                                        <p className='text-right'>{date ? format(new Date(date), 'MMM dd, yyyy') : 'No Date'}</p>
-                                    </div>
+                                <div className='flex justify-between items-center'>
+                                    <p className="">
+                                        <FaLeaf className="inline mr-2 text-green-600" />
+                                        {likes} Likes
+                                    </p>
+                                    <p className='text-right'>{date ? format(new Date(date), 'MMM dd, yyyy') : 'No Date'}</p>
+                                </div>
 
-                                    <div className="card-actions justify-end mt-4">
-                                        <Link to={`/tips/${tip._id}`}>
-                                            <button aria-label={`View details for ${title}`} className="btn btn-primary btn-sm">
-                                                <FaEye /> View Tip
-                                            </button>
-                                        </Link>
-                                    </div>
+                                <div className="card-actions justify-end mt-4">
+                                    <Link to={`/tips/${tip._id}`}>
+                                        <button aria-label={`View details for ${title}`} className="btn btn-primary btn-sm">
+                                            <FaEye /> View Tip
+                                        </button>
+                                    </Link>
                                 </div>
                             </div>
-                        );
+                            </div>
+                );
                     })}
-                </div>
+            </div>
 
-                <div className="text-center mt-12">
-                    <Link to="/tips">
-                        <button className="btn btn-outline btn-primary">View All Tips</button>
-                    </Link>
-                </div>
+            <div className="text-center mt-12">
+                <Link to="/tips">
+                    <button className="btn btn-outline btn-primary">View All Tips</button>
+                </Link>
             </div>
         </div>
+        </div >
     );
 };
 

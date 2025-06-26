@@ -16,29 +16,32 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
+
         try {
-            signIn(email, password).then((userCredential) => {
-                const user = userCredential.user;
-                setUser(user);
-                navigate(location.state?.from?.pathname || '/');
-            })
+            const userCredential = await signIn(email, password);
+            const user = userCredential.user;
+            setUser(user);
+
             Swal.fire({
                 icon: 'success',
                 title: 'Login successful!',
                 showConfirmButton: false,
-                timer: 2000
+                timer: 2000,
             });
+
+            navigate(location.state?.from?.pathname || '/');
         } catch (error) {
             Swal.fire({
                 icon: 'error',
                 title: 'Login failed',
                 text: getErrorMessage(error.code),
-                confirmButtonColor: '#d33'
+                confirmButtonColor: '#d33',
             });
         } finally {
             setIsLoading(false);
         }
     };
+
 
     const handleGoogleSignIn = async () => {
         setIsLoading(true);
@@ -81,8 +84,8 @@ const Login = () => {
     };
 
     useEffect(() => {
-            document.title = "Log In | Green Heaven";
-        }, []);
+        document.title = "Log In | Green Heaven";
+    }, []);
 
     return (
         <div className="min-h-screen bg-base-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
