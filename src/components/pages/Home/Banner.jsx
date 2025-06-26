@@ -63,7 +63,7 @@ const Banner = () => {
         {events.map((event) => (
           <SwiperSlide key={event.id}>
             <div
-              className="relative min-h-screen md:h-[32rem] w-full bg-cover bg-center flex items-center"
+              className="relative min-h-[80vh] md:h-[32rem] w-full bg-cover bg-center flex items-center"
               style={{
                 backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(${event.image})`,
               }}

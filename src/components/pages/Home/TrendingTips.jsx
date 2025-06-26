@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FaLeaf, FaUser, FaSeedling, FaChartLine, FaEye } from 'react-icons/fa';
 import { Link } from 'react-router';
 import Swal from 'sweetalert2';
+import { format } from 'date-fns';
 
 const TrendingTips = () => {
     const [trendingTips, setTrendingTips] = useState([]);
@@ -26,8 +27,7 @@ const TrendingTips = () => {
 
                 const publicTips = data
                     .filter((tip) => tip.availability === 'Public')
-                    .sort((a, b) => b.likes - a.likes)
-                    .slice(0, 6);
+                    .sort((a, b) => b.likes - a.likes);
                 setTrendingTips(publicTips);
             } catch (error) {
                 Swal.fire('Error', error.message || 'Failed to load trending tips');
@@ -72,7 +72,7 @@ const TrendingTips = () => {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                     {trendingTips.map((tip) => {
                         const {
                             _id,
@@ -81,8 +81,8 @@ const TrendingTips = () => {
                             difficulty,
                             category,
                             plantType,
-                            description,
-                            user,
+                            // description,
+                            // user,
                             likes,
                             date,
                             // tags = [],
@@ -111,7 +111,7 @@ const TrendingTips = () => {
                                         </div>
                                     </div>
                                     <h3 className="card-title">{title}</h3>
-                                    <p className="text-base-content/80 line-clamp-3">{description}</p>
+                                    {/* <p className="text-base-content/80 line-clamp-3">{description}</p> */}
 
                                     {/* Tags
                                     <div className="mt-2 flex flex-wrap gap-1">
@@ -125,7 +125,7 @@ const TrendingTips = () => {
                                         ))}
                                     </div> */}
 
-                                    <div className="mt-4 flex items-center">
+                                    {/* <div className="mt-4 flex items-center">
                                         <div className="avatar mr-3">
                                             <div className="w-8 rounded-full bg-base-300 flex items-center justify-center text-primary font-bold">
 
@@ -136,12 +136,15 @@ const TrendingTips = () => {
                                             <p className="font-medium">{user?.name || 'Unknown User'}</p>
                                             <p className="text-sm text-base-content/60">{user?.email || 'No Email'}</p>
                                         </div>
-                                    </div>
+                                    </div> */}
 
-                                    <p className="mt-2 text-sm text-base-content/70">
-                                        <FaLeaf className="inline mr-1 text-green-600" />
-                                        {likes} Likes &nbsp;|&nbsp; {date ? new Date(date).toLocaleDateString() : 'No Date'}
-                                    </p>
+                                    <div className='flex justify-between items-center'>
+                                        <p className="">
+                                            <FaLeaf className="inline mr-2 text-green-600" />
+                                            {likes} Likes
+                                        </p>
+                                        <p className='text-right'>{date ? format(new Date(date), 'MMM dd, yyyy') : 'No Date'}</p>
+                                    </div>
 
                                     <div className="card-actions justify-end mt-4">
                                         <Link to={`/tips/${tip._id}`}>

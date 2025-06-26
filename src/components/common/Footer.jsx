@@ -62,8 +62,8 @@ const Footer = () => {
                 </div>
 
                 {/* Bottom Bar */}
-                <div className="border-t border-base-300 mt-12 pt-8 flex flex-col items-center space-y-4">
-                    <div className="text-sm">
+                <div className="border-t border-base-300 mt-12 pt-8 flex flex-col md:flex-row self-center justify-between items-center space-y-4">
+                    <div className="text-sm md:pt-6">
                         © {new Date().getFullYear()} Greenhaven. All rights reserved.
                     </div>
                     <div className="flex space-x-6">

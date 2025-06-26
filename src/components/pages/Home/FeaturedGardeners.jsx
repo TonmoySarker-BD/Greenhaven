@@ -46,14 +46,14 @@ const FeaturedGardeners = () => {
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-base-content mb-2">
             <FaLeaf className="inline text-primary mr-2" />
-            Active Gardeners
+            Featured Gardeners
           </h2>
           <p className="text-lg text-base-content/80">
             Meet our  gardening experts from across the world.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-8">
           {activeGardeners.map((gardener) => (
             <div key={gardener.id} className="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
               <figure className="px-6 pt-6">
@@ -63,17 +63,28 @@ const FeaturedGardeners = () => {
                   </div>
                 </div>
               </figure>
-              <div className="card-body items-center text-center">
+              <div className="text-center p-5">
                 <h3 className="card-title text-2xl">{gardener.name}</h3>
-                <div className="badge badge-primary mb-1">{gardener.specialty}</div>
-                <p className="text-base-content/80 text-sm">
-                  <strong>{gardener.location}</strong> • {gardener.experience}
-                </p>
-                <p className="text-base-content/70 text-sm">
-                  Age: {gardener.age} • Gender: {gardener.gender} • Status: {gardener.status}
-                </p>
 
-                <div className="flex justify-center gap-6 mt-3">
+
+                <div className='flex items-center justify-between gap-2 mt-2'>
+                  <div className="badge badge-primary mb-1">{gardener.specialty}
+                  </div>
+                  <strong className="text-base-content/80 text-sm">{gardener.location}</strong>
+                </div>
+
+
+                {/* <p className="text-base-content/80 text-sm">
+                  
+                  • {gardener.experience}
+                </p> */}
+
+
+                {/* <p className="text-base-content/70 text-sm">
+                  Age: {gardener.age} • Gender: {gardener.gender} • Status: {gardener.status}
+                </p> */}
+
+                {/* <div className="flex justify-center gap-6 mt-3">
                   <div className="flex items-center">
                     <FaStar className="text-yellow-400 mr-1" />
                     <span>{gardener.rating}</span>
@@ -82,15 +93,20 @@ const FeaturedGardeners = () => {
                     <FaSeedling className="text-primary mr-1" />
                     <span>{gardener.plants} plants</span>
                   </div>
-                </div>
+                </div> */}
 
-                <p className="mt-2 text-sm text-base-content/70">
+                {/* <p className="mt-2 text-sm text-base-content/70">
                   Tips Shared: <strong>{gardener.tips}</strong>
-                </p>
+                </p> */}
 
-                <div className="card-actions mt-4">
-                  <button className="btn btn-primary btn-sm">View Profile</button>
-                  <button className="btn btn-outline btn-sm">Message</button>
+                <div className="mt-4 gap-2">
+                  <Link
+                    to={`/gardener/${gardener._id}`}
+                    className="btn btn-primary btn-sm w-full"
+                  >
+                    View Profile
+                  </Link>
+                  {/* <button className="btn btn-outline btn-sm flex-1">Message</button> */}
                 </div>
               </div>
             </div>
